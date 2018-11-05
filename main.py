@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for
 import os
 
 app = Flask(__name__)
@@ -10,6 +10,10 @@ def imagem(nome_arquivo):
 @app.route('/')
 def pg_index():
     return render_template('index.html')
+
+@app.route('/dashboard')
+def pg_dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/desempenho-fisico')
 def pg_desempenho_fisico():
@@ -29,10 +33,14 @@ def pg_contato():
 
 @app.route('/login', methods=['POST'])
 def login():
-    pass
+    return redirect(url_for('pg_dashboard'))
 
-@app.route('/login')
+@app.route('/resetar-senha')
 def esqueci_a_senha():
     pass
+
+@app.route('/logout')
+def logout():
+    return redirect(url_for('pg_index'))
 
 app.run(host='0.0.0.0', port=8081, debug=True)

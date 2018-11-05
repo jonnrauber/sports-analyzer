@@ -5,17 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sports Analyzer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {% endblock %}
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-light bg-light">
+      {% block header %}
+      <nav class="navbar fixed-top navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='img/sportsanalyzer.jpeg') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+          <a class="navbar-brand" href="{{ url_for('pg_index') }}">
+            <img src="{{ url_for('static', filename='img/sportsanalyzer.jpeg') }}" width="30" height="30" class="d-inline-block align-top" alt="Sports Analyzer">
             Sports Analyzer
           </a>
           <form class="form-inline">
@@ -23,6 +24,7 @@
           </form>
         </div>
       </nav>
+      {% endblock %}
     </header>
 
     <main>
