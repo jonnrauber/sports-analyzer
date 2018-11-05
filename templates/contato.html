@@ -2,12 +2,56 @@
 
 {% block content %}
 
-<div class="card-body card-body-cascade text-center wow fadeIn" data-wow-delay="0.2s">
-  <!--Title-->
-  <h2 class="card-title"><strong>Contato</strong></h2>
-  <!-- <p class="card-text">
-    Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-  </p> -->
+<div class="card">
+  <div class="card-body">
+    <div class="container wow fadeIn" data-wow-delay="0.2s">
+      <div class="row text-center d-flex align-items-center py-3 px-4">
+        <div class="col-6">
+          <!-- Content -->
+          <h5 class="green-text"><i class="fa fa-phone"></i> Contato</h5>
+          <ul class="list-unstyled">
+            <li>(49) 9 9123 4567</li>
+            <li>(49) 3123 4567</li>
+          </ul>
+          <p>Você pode entrar em contato por telefone, WhatsApp, pelo formulário ou chat dessa página :)</p>
+          <hr />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 text-center">
+          <h3>Envie uma mensagem:</h3>
+          <!-- Form -->
+          <form class="text-center" style="color: #757575;">
+
+              <!-- Name -->
+              <div class="md-form mt-3">
+                  <input type="text" name="assunto" id="assunto" class="form-control">
+                  <label for="assunto">Assunto</label>
+              </div>
+
+              <!--Message-->
+              <div class="md-form">
+                  <textarea type="text" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
+                  <label for="materialContactFormMessage">Mensagem</label>
+              </div>
+
+              <!-- Copy -->
+              <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
+                  <label class="form-check-label" for="materialContactFormCopy">Envie-me uma cópia desta mensagem</label>
+              </div>
+
+              <!-- Send button -->
+              <button class="btn btn-success z-depth-0 my-4 waves-effect" type="submit">Enviar</button>
+
+          </form>
+          <!-- Form -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 {% endblock %}
