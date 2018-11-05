@@ -11,6 +11,10 @@ def imagem(nome_arquivo):
 def pg_index():
     return render_template('index.html')
 
+@app.route('/ebook-sports-analyzer.pdf')
+def download_ebook():
+    return send_from_directory('static', 'ebook-sports-analyzer.pdf')
+
 @app.route('/dashboard')
 def pg_dashboard():
     return render_template('dashboard.html')
