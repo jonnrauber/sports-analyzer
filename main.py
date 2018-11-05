@@ -17,19 +17,19 @@ def pg_dashboard():
 
 @app.route('/desempenho-fisico')
 def pg_desempenho_fisico():
-    pass
+    return render_template('desempenho-fisico.html')
 
 @app.route('/desempenho-tecnico')
 def pg_desempenho_tecnico():
-    pass
+    return render_template('desempenho-tecnico.html')
 
 @app.route('/desempenho-tatico')
 def pg_desempenho_tatico():
-    pass
+    return render_template('desempenho-tatico.html')
 
 @app.route('/contato')
 def pg_contato():
-    pass
+    return render_template('contato.html')
 
 @app.route('/login', methods=['POST'])
 def login():

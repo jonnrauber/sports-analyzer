@@ -1,5 +1,90 @@
 {% extends "inner-template.html" %}
 
 {% block content %}
-<h1>Meu Desempenho</h1>
+
+<div class="card-body card-body-cascade text-center wow fadeIn" data-wow-delay="0.2s">
+  <!--Title-->
+  <h2 class="card-title"><strong>Meu Desempenho</strong></h2>
+  <!-- <p class="card-text">
+    Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+  </p> -->
+</div>
+
+<div class="row wow fadeIn" data-wow-delay="0.2s">
+  <!-- Card Fisico -->
+  <div class="col-4 card card-cascade wider">
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/fisico.jpg') }}" alt="Desempenho Físico">
+      <a href="{{ url_for('pg_desempenho_fisico') }}">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+      <!-- Title -->
+      <h4 class="card-title"><strong>Físico</strong></h4>
+      <!-- Text -->
+      <p class="card-text">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </p>
+    </div>
+  </div>
+
+  <!-- Card Técnico -->
+  <div class="col-4 card card-cascade wider">
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/tecnico.jpeg') }}" alt="Desempenho Técnico">
+      <a href="{{ url_for('pg_desempenho_tecnico') }}">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+      <!-- Title -->
+      <h4 class="card-title"><strong>Técnico</strong></h4>
+      <!-- Text -->
+      <p class="card-text">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </p>
+    </div>
+  </div>
+
+  <!-- Card Tático -->
+  <div class="col-4 card card-cascade wider">
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="{{ url_for('static', filename='img/tatico.jpg') }}" width="400" alt="Desempenho Tático">
+      <a href="{{ url_for('pg_desempenho_tatico') }}">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+      <!-- Title -->
+      <h4 class="card-title"><strong>Tático</strong></h4>
+      <!-- Text -->
+      <p class="card-text">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </p>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
