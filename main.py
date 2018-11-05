@@ -42,18 +42,22 @@ def contato_index():
 
 @app.route('/dashboard')
 def pg_dashboard():
+    flash('Alerta! Aqui aparecerão os alertas da aplicação.', category='info')
     return render_template('dashboard.html')
 
 @app.route('/desempenho-fisico')
 def pg_desempenho_fisico():
+    flash('Clique sobre o jogador para mais detalhes dele na partida.', category='info')
     return render_template('desempenho-fisico.html')
 
 @app.route('/desempenho-tecnico')
 def pg_desempenho_tecnico():
+    flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
     return render_template('desempenho-tecnico.html')
 
 @app.route('/desempenho-tatico')
 def pg_desempenho_tatico():
+    flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
     return render_template('desempenho-tatico.html')
 
 @app.route('/contato')

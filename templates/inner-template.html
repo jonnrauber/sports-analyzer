@@ -131,16 +131,26 @@
       {% endblock %}
     </main>
 
-    <footer class="footer-copyright fixed-bottom">
-      <div class="container">
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-          <strong>Alerta!</strong> Aqui aparecerão os alertas da aplicação.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <footer class="footer-copyright fixed-bottom">
+        <div class="container">
+          <ul class="list-unstyled">
+          {% for category, message in messages %}
+            <li>
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </li>
+          {% endfor %}
+          </ul>
         </div>
-      </div>
-    </footer>
+      </footer>
+      {% endif %}
+    {% endwith %}
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
