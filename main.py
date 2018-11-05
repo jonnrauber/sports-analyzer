@@ -27,5 +27,12 @@ def pg_desempenho_tatico():
 def pg_contato():
     pass
 
+@app.route('/login', methods=['POST'])
+def login():
+    pass
+
+@app.route('/login')
+def esqueci_a_senha():
+    pass
 
 app.run(host='0.0.0.0', port=8081, debug=True)

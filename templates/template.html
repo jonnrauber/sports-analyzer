@@ -19,7 +19,7 @@
             Sports Analyzer
           </a>
           <form class="form-inline">
-            <button class="btn btn-secondary" type="button">Acessar</button>
+            <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
           </form>
         </div>
       </nav>
@@ -48,5 +48,9 @@
         </div>
         {% endblock %}
     </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   </body>
 </html>
