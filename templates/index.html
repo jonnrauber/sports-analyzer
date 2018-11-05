@@ -1,0 +1,85 @@
+{% extends "template.html" %}
+{% block content %}
+
+  <div class="jumbotron jumbotron-fluid" id="jumbotron-index">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h1>Descubra o poder da análise estatística no futebol</h1>
+        </div>
+        <div class="col text-center">
+          <button class="btn btn-dark">+ saiba mais</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="jumbotron" id="jumbotron-index-text">
+      <div class="row align-items-center">
+        <div class="col-6 text-right">
+          <h2>Melhore a competitividade e<br /> o desempenho do seu time</h2>
+        </div>
+        <div class="col-6">
+          <div class="jumbotron">
+            <h3>Nossos Benefícios</h3>
+            <h5>Veja por que utilizar Sports Analyzer ®:</h5>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <i class="material-icons">person</i>
+                Controle de desempenho físico
+              </li>
+              <li class="list-group-item">
+                <i class="material-icons">person</i>
+                Controle de desempenho técnico
+              </li>
+              <li class="list-group-item">
+                <i class="material-icons">person</i>
+                Controle de desempenho tático
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jumbotron jumbotron-fluid" id="jumbotron-index-form">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-4">
+          <h2 class="text-center">Entre em contato</h2>
+
+          <form method="post">
+            <div class="form-group row">
+              <div class="col">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <input type="text" class="form-control" id="clube" name="clube" placeholder="Nome do Clube">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <button type="submit" class="btn btn-block btn-dark">Enviar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+body {
+  background-color: #e9ecef;
+}
+
+#jumbotron-index {
+  margin-bottom: 0px;
+  height: 300px;
+  color: white;
+  background-image: url("../img/soccer-field2.jpg");
+  background-size: cover;
+}
+
+#jumbotron-index-text {
+  margin: 10px 0px;
+  height: 300px;
+  padding: 0px;
+}
+
+#jumbotron-index-text .jumbotron {
+  margin-bottom: 0px;
+  height: 280px;
+  padding: 2rem 0rem;
+}
+
+#jumbotron-index-form {
+  height: 500px;
+  color: white;
+  background-image: url("../img/soccer-field.jpg");
+  background-size: cover;
+}
+
+footer {
+  margin-bottom: 20px;
+}
