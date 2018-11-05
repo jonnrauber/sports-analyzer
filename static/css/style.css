@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: #e9ecef;
 }
@@ -36,4 +40,8 @@ footer {
 
 #logo-wrapper {
   height: 200px !important;
+}
+
+#card-desempenho {
+  min-height: 80%;
 }

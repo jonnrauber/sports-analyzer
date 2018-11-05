@@ -2,12 +2,52 @@
 
 {% block content %}
 
-<div class="card-body card-body-cascade text-center wow fadeIn" data-wow-delay="0.2s">
-  <!--Title-->
-  <h2 class="card-title"><strong>Desempenho Tático</strong></h2>
-  <!-- <p class="card-text">
-    Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-  </p> -->
-</div>
+  <div class="card wow fadeIn" data-wow-delay="0.2s" id="card-desempenho">
+    <div class="card-body">
+      <h5 class="card-title">Analisador de Desempenho Tático</h5>
+      <div class="row">
+        <div class="col-5">
+          Estatísticas Disponíveis
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Esquema tático usado</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Mapa de calor</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-2">
+        </div>
+
+        <div class="col-5">
+          Mapa de calor
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <td>Grafite</td>
+                <td>22km/h <i class="fa fa-arrow-right"></i></a></td>
+              </tr>
+              <tr>
+                <td>Walter Branco</td>
+                <td>22km/h <i class="fa fa-arrow-right"></i></a></td>
+              </tr>
+              <tr>
+                <td>Pablo Escobar</td>
+                <td>22km/h <i class="fa fa-arrow-right"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

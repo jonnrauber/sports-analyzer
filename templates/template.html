@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sports Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {% endblock %}
@@ -20,7 +21,7 @@
             Sports Analyzer
           </a>
           <form class="form-inline">
-            <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
+            <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
           </form>
         </div>
       </nav>
@@ -51,8 +52,14 @@
         {% endblock %}
     </footer>
 
-    <script src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+    <script>
+         // SideNav Initialization
+        $(".button-collapse").sideNav();
+        new WOW().init();
+    </script>
   </body>
 </html>

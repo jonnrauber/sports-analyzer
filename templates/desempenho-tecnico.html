@@ -2,12 +2,85 @@
 
 {% block content %}
 
-<div class="card-body card-body-cascade text-center wow fadeIn" data-wow-delay="0.2s">
-  <!--Title-->
-  <h2 class="card-title"><strong>Desempenho Técnico</strong></h2>
-  <!-- <p class="card-text">
-    Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-  </p> -->
-</div>
+  <div class="card wow fadeIn" data-wow-delay="0.2s" id="card-desempenho">
+    <div class="card-body">
+      <h5 class="card-title">Analisador de Desempenho Técnico</h5>
+      <div class="row">
+        <div class="col-5">
+          Estatísticas Disponíveis
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Faltas sofridas</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Gols por jogador</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Passes completados</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Passes errados</td>
+                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-2">
+        </div>
+
+        <div class="col-5">
+          Gols por jogador
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    // For a pie chart
+    var myPieChart = new Chart(ctx,{
+        type: 'pie',
+        data: {
+            labels: ["Grafite", "Pablo Escobar", "White", "Walter"],
+            datasets: [{
+                label: "Gols por Jogador",
+                backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 255, 255)'],
+                data: [6, 10, 4, 4],
+            }]
+        },
+        options: {}
+    });
+
+
+    // var chart = new Chart(ctx, {
+    //   // The type of chart we want to create
+    //   type: 'line',
+    //
+    //   // The data for our dataset
+    //   data: {
+    //       labels: ["January", "February", "March", "April", "May", "June", "July"],
+    //       datasets: [{
+    //           label: "My First dataset",
+    //           backgroundColor: 'rgb(255, 99, 132)',
+    //           borderColor: 'rgb(255, 99, 132)',
+    //           data: [0, 10, 5, 2, 20, 30, 45],
+    //       }]
+    //   },
+    //
+    //   // Configuration options go here
+    //   options: {}
+    // });
+  </script>
 
 {% endblock %}
