@@ -9,6 +9,7 @@ verify_ssl = true
 Flask = "*"
 flask_login = "*"
 flask_sqlalchemy = "*"
+psycopg2 = "*"
 
 [requires]
 
