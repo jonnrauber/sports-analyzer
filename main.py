@@ -1,20 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for
-from flask_sqlalchemy import SQLAlchemy
 import os
+from models import db, MsgFormIndex
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
-db = SQLAlchemy(app)
-
-class MsgFormIndex(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    nome = db.Column(db.String(40), nullable = False)
-    email = db.Column(db.String(120), nullable = False)
-    telefone = db.Column(db.String(20), nullable = False)
-    clube = db.Column(db.String(40), nullable = False)
-
-    def __repr__(self):
-        return '<MsgFormIndex %r>' % self.nome
 
 def imagem(nome_arquivo):
     return send_from_directory('uploads', nome_arquivo=nome_arquivo)
@@ -77,5 +66,7 @@ def logout():
     return redirect(url_for('pg_index'))
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.init_app(app)
     port = int(os.environ.get("PORT", 8081))
     app.run(host='0.0.0.0', port=port, debug=True)
