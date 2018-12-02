@@ -26,30 +26,12 @@
           <ul class="custom-scrollbar">
               <!-- Logo -->
               <li>
-                  <div class="logo-wrapper waves-light" id="logo-wrapper">
+                  <div class="logo-wrapper waves-light text-center black-text" id="logo-wrapper">
+                      {{ current_user.nome }} - {{ current_user.clube.nome }}
                       <a href="{{ url_for('pg_dashboard') }}"><img src="{{ url_for('static', filename='img/sportsanalyzer.jpeg') }}" class="img-fluid flex-center"></a>
                   </div>
               </li>
               <!--/. Logo -->
-              <!--Social-->
-              <li>
-                <ul class="social">
-                    <li><a href="#" class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
-                    <li><a href="#" class="icons-sm pin-ic"><i class="fa fa-pinterest"> </i></a></li>
-                    <li><a href="#" class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
-                    <li><a href="#" class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>
-                </ul>
-              </li>
-              <!--/Social-->
-              <!--Search Form-->
-              <li>
-                  <form class="search-form" role="search">
-                      <div class="form-group md-form mt-0 pt-1 waves-light">
-                          <input type="text" class="form-control" placeholder="Pesquisar">
-                      </div>
-                  </form>
-              </li>
-              <!--/.Search Form-->
               <!-- Side navigation links -->
               <li>
                   <ul class="collapsible collapsible-accordion">
@@ -112,7 +94,7 @@
           <ul class="nav navbar-nav nav-flex-icons ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user"></i> Perfil
+                    <i class="fa fa-user"></i> {{ current_user.nome }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Configurações</a>

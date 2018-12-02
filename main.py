@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for, abort
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import os
-from models import db, MsgFormIndex, Usuario, TipoEstatistica
+from models import db, MsgFormIndex, MsgContato, Usuario, TipoEstatistica
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -68,10 +68,22 @@ def pg_desempenho_tatico():
     flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
     return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica)
 
-@app.route('/contato')
+@app.route('/contato', methods=['GET'])
 @login_required
 def pg_contato():
-    return render_template('contato.html')
+    msgs = MsgContato.query.filter_by(id_usuario=current_user.id)
+    return render_template('contato.html', msgs=msgs)
+
+@app.route('/contato', methods=['POST'])
+@login_required
+def contato():
+    assunto = request.form.get('assunto')
+    mensagem = request.form.get('msg')
+    msg = MsgContato(assunto=assunto, mensagem=mensagem, id_usuario=current_user.id)
+    db.session.add(msg)
+    db.session.commit()
+    flash('Mensagem enviada com sucesso! Retornaremos o mais breve possível.', category='success')
+    return redirect(url_for('pg_contato'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():

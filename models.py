@@ -15,6 +15,14 @@ class MsgFormIndex(db.Model):
     def __repr__(self):
         return '<MsgFormIndex %r>' % self.nome
 
+class MsgContato(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+    usuario = db.relationship('Usuario')
+    assunto = db.Column(db.String(50), nullable=False)
+    mensagem = db.Column(db.String(500), nullable=False)
+    data = db.Column(db.DateTime, default=datetime.utcnow())
+
 class Clube(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30), nullable=False)
