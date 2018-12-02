@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for, abort
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import os
-from models import db, MsgFormIndex, Usuario
+from models import db, MsgFormIndex, Usuario, TipoEstatistica
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -50,20 +50,23 @@ def pg_dashboard():
 @app.route('/desempenho-fisico')
 @login_required
 def pg_desempenho_fisico():
+    tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=1)
     flash('Clique sobre o jogador para mais detalhes dele na partida.', category='info')
-    return render_template('desempenho-fisico.html')
+    return render_template('desempenho-fisico.html', tipos_estatistica=tipos_estatistica)
 
 @app.route('/desempenho-tecnico')
 @login_required
 def pg_desempenho_tecnico():
+    tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=2)
     flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
-    return render_template('desempenho-tecnico.html')
+    return render_template('desempenho-tecnico.html', tipos_estatistica=tipos_estatistica)
 
 @app.route('/desempenho-tatico')
 @login_required
 def pg_desempenho_tatico():
+    tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=3)
     flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
-    return render_template('desempenho-tatico.html')
+    return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica)
 
 @app.route('/contato')
 @login_required

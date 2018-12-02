@@ -10,26 +10,13 @@
           Estatísticas Disponíveis
           <table class="table table-hover">
             <tbody>
+              {% for te in tipos_estatistica: %}
               <tr>
-                <th scope="row">1</th>
-                <td>Faltas sofridas</td>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ te.nome }}</td>
                 <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Gols por jogador</td>
-                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Passes completados</td>
-                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Passes errados</td>
-                <td><a class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
