@@ -16,13 +16,13 @@
 
                   <!-- Name -->
                   <div class="md-form mt-3">
-                      <input type="text" name="assunto" id="assunto" class="form-control">
+                      <input type="text" name="assunto" id="assunto" class="form-control" maxlength="50">
                       <label for="assunto">Assunto</label>
                   </div>
 
                   <!--Message-->
                   <div class="md-form">
-                      <textarea name="msg" type="text" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
+                      <textarea name="msg" type="text" id="materialContactFormMessage" class="form-control md-textarea" rows="3" maxlength="500"></textarea>
                       <label for="materialContactFormMessage">Mensagem</label>
                   </div>
 
@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="col-12">
+          <div class="col-12 pane">
             {% if msgs: %}
             <h4>Histórico de mensagens enviadas</h4>
             <table class="table table-striped">
@@ -55,6 +55,7 @@
                 <tr>
                   <td>
                     <h5>{{ msg.assunto }}</h5>
+                    <small>{{ msg.data.strftime('%H:%M %d/%m/%y') }}</small>
                     <p>{{ msg.mensagem }}</p>
                   </td>
                 </tr>

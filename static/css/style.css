@@ -43,5 +43,11 @@ footer {
 }
 
 #card-desempenho {
-  min-height: 80%;
+  min-height: 70%;
+}
+
+.pane {
+    display: inline-block;
+    overflow-y: scroll;
+    max-height:500px;
 }
