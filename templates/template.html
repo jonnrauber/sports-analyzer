@@ -17,11 +17,12 @@
       <nav class="navbar fixed-top navbar-light bg-light">
         <div class="container">
           <a class="navbar-brand" href="{{ url_for('pg_index') }}">
-            <img src="{{ url_for('static', filename='img/sportsanalyzer.jpeg') }}" width="30" height="30" class="d-inline-block align-top" alt="Sports Analyzer">
+            <img src="{{ url_for('static', filename='img/sportsanalyzer.png') }}" width="30" height="30" class="d-inline-block align-top" alt="Sports Analyzer">
             Sports Analyzer
           </a>
           <form class="form-inline">
-            <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
+            <button class="btn btn-dark d-none d-md-block" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
+            <button class="btn btn-dark btn-sm d-md-none" type="button" data-toggle="modal" data-target="#loginModal">Acessar</button>
           </form>
         </div>
       </nav>
@@ -66,7 +67,7 @@
               </ul>
             </div>
             <div class="col-6">
-              <img src="{{ url_for('static', filename='img/sportsanalyzer.jpeg') }}" width="175" height="200">
+              <img src="{{ url_for('static', filename='img/sportsanalyzer.png') }}" width="175" height="200">
             </div>
           </div>
         </div>
