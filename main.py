@@ -140,20 +140,20 @@ def pg_desempenho_tatico():
     jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
     estatisticas = []
     id_tipo_estatistica = None
-    id_jogo = None
+    jogo = None
     if request.method == 'POST':
-        id_jogo = request.form['id_jogo']
+        jogo = Jogo.query.filter_by(id=int(request.form['id_jogo'])).first()
         id_tipo_estatistica = request.form['id_tipo_estatistica']
 
         if id_tipo_estatistica != None:
             estatisticas = Estatistica.query \
                                     .filter_by(id_tipo_estatistica=id_tipo_estatistica) \
                                     .join(Jogo) \
-                                    .filter_by(id_time=current_user.id_clube, id=id_jogo) \
+                                    .filter_by(id_time=current_user.id_clube, id=jogo.id) \
                                     .all()
     else:
         id_tipo_estatistica = request.args.get('id_tipo_estatistica')
-    return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
+    return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica, jogo=jogo, \
                             estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica)
 
 @app.route('/contato', methods=['GET'])
