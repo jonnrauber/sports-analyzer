@@ -51,3 +51,8 @@ footer {
     overflow-y: scroll;
     max-height:500px;
 }
+
+.sem-sombra {
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);
+  -webkit-box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);
+}
