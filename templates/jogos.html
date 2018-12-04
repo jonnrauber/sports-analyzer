@@ -1,0 +1,96 @@
+{% extends "inner-template.html" %}
+
+{% block content %}
+
+  <div class="card wow fadeIn" data-wow-delay="0.2s" id="card-desempenho">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="card-title">Jogos</h5>
+          <table class="table table-hover">
+            <thead>
+              <th colspan="3">
+                <strong>Jogos realizados</strong>
+              </th>
+            </thead>
+            <tbody>
+              {% for jogo in jogos: %}
+              <tr>
+                <td>
+                  <small>
+                    {{ jogo.data.strftime('%d/%m/%y') }}
+                    -
+                    {% if jogo.local == 1: %}
+                    em casa
+                    {% else %}
+                    fora
+                    {% endif %}
+                  </small>
+                  <br/>
+                  {{ jogo.time.nome }} {{ jogo.placar_time }} X {{ jogo.placar_adversario }} {{ jogo.adversario.nome }}
+                </td>
+                <td><a href="{{ url_for('pg_jogo', id=jogo.id) }}" class="blue-text">estatísticas <i class="fa fa-info-circle"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% if jogo: %}
+        <div class="col-md-6">
+            <h5 class="card-title">{{ jogo.time.nome }} {{ jogo.placar_time }} X {{ jogo.placar_adversario }} {{ jogo.adversario.nome }}</h5>
+
+            <table>
+              {% for te in tipos_estatistica: %}
+                <tr>
+                  <td>{{ te.nome }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    // For a pie chart
+    var myPieChart = new Chart(ctx,{
+        type: 'pie',
+        data: {
+            labels: ["Grafite", "Pablo Escobar", "White", "Walter"],
+            datasets: [{
+                label: "Gols por Jogador",
+                backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 255, 255)'],
+                data: [6, 10, 4, 4],
+            }]
+        },
+        options: {}
+    });
+
+
+    // var chart = new Chart(ctx, {
+    //   // The type of chart we want to create
+    //   type: 'line',
+    //
+    //   // The data for our dataset
+    //   data: {
+    //       labels: ["January", "February", "March", "April", "May", "June", "July"],
+    //       datasets: [{
+    //           label: "My First dataset",
+    //           backgroundColor: 'rgb(255, 99, 132)',
+    //           borderColor: 'rgb(255, 99, 132)',
+    //           data: [0, 10, 5, 2, 20, 30, 45],
+    //       }]
+    //   },
+    //
+    //   // Configuration options go here
+    //   options: {}
+    // });
+  </script>
+
+{% endblock %}

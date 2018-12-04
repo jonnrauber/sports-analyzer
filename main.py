@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for, abort
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import os
-from models import db, MsgFormIndex, MsgContato, Usuario, TipoEstatistica
+from models import db, MsgFormIndex, MsgContato, Usuario, TipoEstatistica, Estatistica, Jogador, Jogo, Chart
+import random
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -19,6 +20,17 @@ def load_user(id):
 
 def imagem(nome_arquivo):
     return send_from_directory('uploads', nome_arquivo=nome_arquivo)
+
+def chartEstatisticas(estatisticas):
+    labels = []
+    values = []
+    colors = []
+    for e in estatisticas:
+        labels.append(e.jogador.nome)
+        values.append(e.quantidade)
+        c = lambda: random.randint(0,255)
+        colors.append('#%02X%02X%02X' % (c(), c(), c()))
+    return Chart(labels, values, colors)
 
 @app.route('/', methods=['GET'])
 def pg_index():
@@ -44,35 +56,103 @@ def contato_index():
 @app.route('/dashboard')
 @login_required
 def pg_dashboard():
-    flash('Alerta! Aqui aparecerão os alertas da aplicação.', category='info')
     return render_template('dashboard.html')
 
-@app.route('/desempenho-fisico')
+@app.route('/desempenho-fisico', methods=["GET", "POST"])
 @login_required
 def pg_desempenho_fisico():
     tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=1)
-    flash('Clique sobre o jogador para mais detalhes dele na partida.', category='info')
-    return render_template('desempenho-fisico.html', tipos_estatistica=tipos_estatistica)
+    jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
+    estatisticas = []
+    id_tipo_estatistica = None
+    id_jogo = None
+    if request.method == 'POST':
+        id_jogo = request.form['id_jogo']
+        id_tipo_estatistica = request.form['id_tipo_estatistica']
 
-@app.route('/desempenho-tecnico')
+        if id_tipo_estatistica != None:
+            estatisticas = Estatistica.query \
+                                    .filter_by(id_tipo_estatistica=id_tipo_estatistica) \
+                                    .join(Jogo) \
+                                    .filter_by(id_time=current_user.id_clube, id=id_jogo) \
+                                    .all()
+        flash('Clique sobre o jogador para mais detalhes.', category='info')
+    else:
+        id_tipo_estatistica = request.args.get('id_tipo_estatistica')
+    return render_template('desempenho-fisico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
+                            estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica)
+
+@app.route('/desempenho-tecnico', methods=['GET', 'POST'])
 @login_required
 def pg_desempenho_tecnico():
     tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=2)
-    flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
-    return render_template('desempenho-tecnico.html', tipos_estatistica=tipos_estatistica)
+    jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
+    estatisticas = []
+    id_tipo_estatistica = None
+    id_jogo = None
+    chart = []
+    if request.method == 'POST':
+        id_jogo = request.form['id_jogo']
+        id_tipo_estatistica = request.form['id_tipo_estatistica']
 
-@app.route('/desempenho-tatico')
+        if id_tipo_estatistica != None:
+            estatisticas = Estatistica.query \
+                                    .filter_by(id_tipo_estatistica=id_tipo_estatistica) \
+                                    .join(Jogo) \
+                                    .filter_by(id_time=current_user.id_clube, id=id_jogo) \
+                                    .all()
+
+            chart = chartEstatisticas(estatisticas)
+        flash('Clique sobre o jogador para mais detalhes.', category='info')
+    else:
+        id_tipo_estatistica = request.args.get('id_tipo_estatistica')
+    return render_template('desempenho-tecnico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
+                            estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica, \
+                            chart=chart)
+
+@app.route('/desempenho-tatico', methods=['GET', 'POST'])
 @login_required
 def pg_desempenho_tatico():
     tipos_estatistica = TipoEstatistica.query.filter_by(id_modulo=3)
-    flash('Clique sobre o gráfico para mais detalhes do jogador.', category='info')
-    return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica)
+    jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
+    estatisticas = []
+    id_tipo_estatistica = None
+    id_jogo = None
+    if request.method == 'POST':
+        id_jogo = request.form['id_jogo']
+        id_tipo_estatistica = request.form['id_tipo_estatistica']
+
+        if id_tipo_estatistica != None:
+            estatisticas = Estatistica.query \
+                                    .filter_by(id_tipo_estatistica=id_tipo_estatistica) \
+                                    .join(Jogo) \
+                                    .filter_by(id_time=current_user.id_clube, id=id_jogo) \
+                                    .all()
+        flash('Clique sobre o jogador para mais detalhes.', category='info')
+    else:
+        id_tipo_estatistica = request.args.get('id_tipo_estatistica')
+    return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
+                            estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica)
 
 @app.route('/contato', methods=['GET'])
 @login_required
 def pg_contato():
     msgs = MsgContato.query.filter_by(id_usuario=current_user.id)
     return render_template('contato.html', msgs=msgs)
+
+@app.route('/jogos', methods=['GET'])
+@login_required
+def pg_jogos():
+    jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
+    return render_template('jogos.html', jogos=jogos)
+
+@app.route('/jogos/<id>', methods=['GET'])
+@login_required
+def pg_jogo(id=None):
+    jogos = Jogo.query.filter_by(id_time=current_user.clube.id).all()
+    jogo = Jogo.query.filter_by(id=id).first_or_404()
+    estatisticas = Estatistica.query.filter_by(id_jogo=id).all()
+    return render_template('jogos.html', jogos=jogos, jogo=jogo, estatisticas=estatisticas)
 
 @app.route('/contato', methods=['POST'])
 @login_required

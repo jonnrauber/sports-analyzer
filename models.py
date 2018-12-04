@@ -5,6 +5,12 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+class Chart():
+    def __init__(self, labels, values, colors):
+        self.labels = labels
+        self.values = values
+        self.colors = colors
+
 class MsgFormIndex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(40), nullable=False)
@@ -21,12 +27,19 @@ class MsgContato(db.Model):
     usuario = db.relationship('Usuario')
     assunto = db.Column(db.String(50), nullable=False)
     mensagem = db.Column(db.String(500), nullable=False)
-    data = db.Column(db.DateTime, default=datetime.utcnow())
+    data = db.Column(db.DateTime)
+
+    def __init__(self, id_usuario, assunto, mensagem):
+        self.id_usuario = id_usuario
+        self.assunto = assunto
+        self.mensagem = mensagem
+        self.data = datetime.now()
 
 class Clube(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(30), nullable=False)
+    nome = db.Column(db.String(30), unique=True, nullable=False)
     jogos = db.relationship("Jogo", foreign_keys="Jogo.id_time", backref="clube", lazy="dynamic")
+    jogadores = db.relationship("Jogador", foreign_keys="Jogador.id_clube", lazy="dynamic")
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +71,7 @@ class Usuario(db.Model):
 
 class EsquemaTatico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    formacao = db.Column(db.String(10), nullable=False)
+    formacao = db.Column(db.String(10), unique=True, nullable=False)
 
 class Jogo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,11 +83,17 @@ class Jogo(db.Model):
     adversario = db.relationship('Clube', foreign_keys=[id_adversario])
     id_esquema_tatico = db.Column(db.Integer, db.ForeignKey('esquema_tatico.id'), nullable=False)
     esquema_tatico = db.relationship('EsquemaTatico')
+    placar_time = db.Column(db.Integer, nullable=False)
+    placar_adversario = db.Column(db.Integer, nullable=False)
 
 class Jogador(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30), nullable=False)
     idade = db.Column(db.Integer, nullable=False)
+    id_clube = db.Column(db.Integer, db.ForeignKey('clube.id'), nullable=False)
+    clube = db.relationship('Clube')
+    altura = db.Column(db.Integer) #em cm
+    peso = db.Column(db.Integer) #em kg
 
 class Modulo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -82,9 +101,10 @@ class Modulo(db.Model):
 
 class TipoEstatistica(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(50), nullable=False)
+    nome = db.Column(db.String(50), unique=True, nullable=False)
     id_modulo = db.Column(db.Integer, db.ForeignKey('modulo.id'), nullable=False)
     modulo = db.relationship('Modulo', foreign_keys=[id_modulo])
+    unidade_medida = db.Column(db.String(10))
 
 class Estatistica(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -92,6 +112,6 @@ class Estatistica(db.Model):
     jogo = db.relationship('Jogo', foreign_keys=[id_jogo])
     id_jogador = db.Column(db.Integer, db.ForeignKey('jogador.id'), nullable=False)
     jogador = db.relationship('Jogador', foreign_keys=[id_jogador])
-    id_estatistica = db.Column(db.Integer, db.ForeignKey('tipo_estatistica.id'), nullable=False)
-    estatistica = db.relationship('TipoEstatistica', foreign_keys=[id_estatistica])
+    id_tipo_estatistica = db.Column(db.Integer, db.ForeignKey('tipo_estatistica.id'), nullable=False)
+    tipo_estatistica = db.relationship('TipoEstatistica', foreign_keys=[id_tipo_estatistica])
     quantidade = db.Column(db.Integer, nullable=False)
