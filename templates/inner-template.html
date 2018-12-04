@@ -60,11 +60,13 @@
                           <i class="fa fa-puzzle-piece"></i> Tático
                         </a>
                       </li>
+                      {% if current_user.role.nome == 'ADMIN' %}
                       <li>
-                        <a class="collapsible-header waves-effect arrow-r" href="{{ url_for('pg_jogos') }}">
-                          <i class="fa fa-soccer-ball-o"></i> Jogos
+                        <a class="collapsible-header waves-effect arrow-r" href="{{ url_for('pg_cadastrar') }}">
+                          <i class="fa fa-upload"></i> Cadastrar
                         </a>
                       </li>
+                      {% endif %}
                   </ul>
               </li>
               <!--/. Side navigation links -->
@@ -95,9 +97,11 @@
               <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('pg_desempenho_tatico') }}"><i class="fa fa-puzzle-piece"></i> <span class="clearfix d-none d-sm-inline-block">Tático</span></a>
               </li>
+              {% if current_user.role.nome == 'ADMIN' %}
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('pg_jogos') }}"><i class="fa fa-soccer-ball-o"></i> <span class="clearfix d-none d-sm-inline-block">Jogos</span></a>
+                  <a class="nav-link" href="{{ url_for('pg_cadastrar') }}"><i class="fa fa-upload"></i> <span class="clearfix d-none d-sm-inline-block">Cadastrar</span></a>
               </li>
+              {% endif %}
           </ul>
           <ul class="nav navbar-nav nav-flex-icons ml-auto">
             <li class="nav-item dropdown">

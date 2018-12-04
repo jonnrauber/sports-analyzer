@@ -42,6 +42,10 @@ class Clube(db.Model):
     jogos = db.relationship("Jogo", foreign_keys="Jogo.id_time", backref="clube", lazy="dynamic")
     jogadores = db.relationship("Jogador", foreign_keys="Jogador.id_clube", lazy="dynamic")
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(30), unique=True, nullable=False)
+
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, index=True, nullable=False)
@@ -50,13 +54,16 @@ class Usuario(db.Model):
     data_de_registro = db.Column(db.DateTime)
     id_clube = db.Column(db.Integer, db.ForeignKey('clube.id'), nullable=False)
     clube = db.relationship('Clube')
+    id_role = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    role = db.relationship('Role')
 
-    def __init__(self, email, password, id_clube, nome):
+    def __init__(self, email, password, id_clube, nome, id_role):
         self.email = email
         self.password = password
         self.nome = nome
         self.id_clube = id_clube
         self.data_de_registro = datetime.utcnow()
+        self.id_role = id_role
 
     def is_authenticated(self):
         return True
@@ -69,6 +76,9 @@ class Usuario(db.Model):
 
     def get_id(self):
         return str(self.id)
+
+    def get_role(self):
+        return self.role
 
 class EsquemaTatico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -87,6 +97,15 @@ class Jogo(db.Model):
     placar_time = db.Column(db.Integer, nullable=False)
     placar_adversario = db.Column(db.Integer, nullable=False)
 
+    def __init__(self, data, local, id_time, id_adversario, id_esquema_tatico, placar_time, placar_adversario):
+        self.data = data
+        self.local = local
+        self.id_time = id_time
+        self.id_adversario = id_adversario
+        self.id_esquema_tatico = id_esquema_tatico
+        self.placar_time = placar_time
+        self.placar_adversario = placar_adversario
+
 class Jogador(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30), nullable=False)
@@ -95,6 +114,13 @@ class Jogador(db.Model):
     clube = db.relationship('Clube')
     altura = db.Column(db.Integer) #em cm
     peso = db.Column(db.Integer) #em kg
+
+    def __init__(self, nome, idade, id_clube, altura=None, peso=None):
+        self.nome = nome
+        self.idade = idade
+        self.id_clube = id_clube
+        self.altura = altura
+        self.peso = peso
 
 class Modulo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -107,6 +133,11 @@ class TipoEstatistica(db.Model):
     modulo = db.relationship('Modulo', foreign_keys=[id_modulo])
     unidade_medida = db.Column(db.String(10))
 
+    def __init__(self, nome, id_modulo, unidade_medida=''):
+        self.nome = nome
+        self.id_modulo = id_modulo
+        self.unidade_medida = unidade_medida
+
 class Estatistica(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_jogo = db.Column(db.Integer, db.ForeignKey('jogo.id'), nullable=False)
@@ -116,3 +147,9 @@ class Estatistica(db.Model):
     id_tipo_estatistica = db.Column(db.Integer, db.ForeignKey('tipo_estatistica.id'), nullable=False)
     tipo_estatistica = db.relationship('TipoEstatistica', foreign_keys=[id_tipo_estatistica])
     quantidade = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, id_jogo, id_jogador, id_tipo_estatistica, quantidade):
+        self.id_jogo = id_jogo
+        self.id_jogador = id_jogador
+        self.id_tipo_estatistica = id_tipo_estatistica
+        self.quantidade = quantidade

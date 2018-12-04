@@ -6,7 +6,8 @@ INSERT INTO clube (nome) VALUES
 
 INSERT INTO jogador (nome, idade, id_clube) VALUES
 ('Walter Branco', 33, 1),
-('Chimbinha', 24, 1)
+('Chimbinha', 24, 1),
+('Teste Jogador', 27, 1)
 ;
 
 INSERT INTO modulo (nome) VALUES
@@ -23,7 +24,9 @@ INSERT INTO tipo_estatistica (nome, id_modulo, unidade_medida) VALUES
 ('Faltas sofridas', 2, ''),
 ('Gols por jogador', 2, ''),
 ('Passes completados', 2, ''),
-('Passes errados', 2, '')
+('Passes errados', 2, ''),
+
+('Formação tática', 3, '')
 ;
 
 INSERT INTO esquema_tatico (formacao) VALUES
@@ -64,6 +67,14 @@ INSERT INTO estatistica (id_jogo, id_jogador, id_tipo_estatistica, quantidade) V
 (1, 2, 6, 30),
 (1, 2, 7, 5),
 
+(1, 3, 1, 7000),
+(1, 3, 2, 26),
+(1, 3, 3, 97), --jogo 1 / jogador 2
+(1, 3, 4, 8),
+(1, 3, 5, 0),
+(1, 3, 6, 32),
+(1, 3, 7, 9),
+
 (2, 1, 1, 9200),
 (2, 1, 2, 27),
 (2, 1, 3, 93), --jogo 2 / jogador 1
@@ -73,6 +84,12 @@ INSERT INTO estatistica (id_jogo, id_jogador, id_tipo_estatistica, quantidade) V
 (2, 1, 7, 3)
 ;
 
-INSERT INTO usuario (email, password, nome, id_clube, data_de_registro) VALUES
-('teste@teste.gmail.com', 'beberunsdanone', 'Testador', 1, now())
+INSERT INTO role (nome) VALUES
+('USER'),
+('ADMIN')
+;
+
+INSERT INTO usuario (email, password, nome, id_clube, data_de_registro, id_role) VALUES
+('teste@teste.gmail.com', 'beberunsdanone', 'Testador', 1, now(), 1),
+('admin@admin.gmail.com', 'beberunsdanone', 'Administrador', 1, now(), 2)
 ;

@@ -1,0 +1,215 @@
+{% extends "inner-template.html" %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+    <div class="container wow fadeIn" data-wow-delay="0.2s">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Cadastrar</h5>
+          <div class="list-group">
+            <a href="{{ url_for('pg_cadastro_jogador') }}" class="list-group-item list-group-item-action">
+              Jogador
+            </a>
+            <a href="{{ url_for('pg_cadastro_jogo') }}" class="list-group-item list-group-item-action">
+              Jogo
+            </a>
+            <a href="{{ url_for('pg_cadastro_tipo_estatistica') }}" class="list-group-item list-group-item-action">
+              Tipo de Estatística
+            </a>
+            <a href="{{ url_for('pg_cadastro_estatistica') }}" class="list-group-item list-group-item-action">
+              Estatística
+            </a>
+          </div>
+        </div>
+        {% if rend_cadastro_jogador %}
+        <div class="col-md-8">
+          <h5>Cadastro de Jogador</h5>
+          <form action="{{ url_for('cadastrar_jogador') }}" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label for="inputNome">Nome</label>
+                <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Nome" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputIdade">Idade</label>
+                <input type="number" class="form-control" id="inputIdade" name="idade" placeholder="Idade" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="selectClube">Clube</label>
+              <select class="form-control" name="id_clube" id="selectClube" required>
+                {% for clube in clubes %}
+                  <option value="{{ clube.id }}">{{ clube.nome }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputAltura">Altura</label>
+                <input type="number" class="form-control" id="inputAltura" name="altura" placeholder="Altura em cm">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPeso">Peso</label>
+                <input type="number" class="form-control" id="inputPeso" name="peso" placeholder="Peso em kg">
+              </div>
+            </div>
+            <button class="btn btn-success z-depth-0 my-4 waves-effect" type="submit">Cadastrar</button>
+          </form>
+        </div>
+        {% endif %}
+        {% if rend_cadastro_jogo %}
+        <div class="col-md-8">
+          <h5>Cadastro de Jogo</h5>
+          <form action="{{ url_for('cadastrar_jogo') }}" method="post">
+            <div class="form-row">
+              <div class="form-group offset-md-2 col-md-4">
+                <label for="inputNome">Data</label>
+                <input type="date" class="form-control" id="inputData" name="data" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="selectLocal">Local</label>
+                <select class="form-control" id="selectLocal" name="local">
+                  <option value="1" selected>Em casa</option>
+                  <option value="0">Fora</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-5">
+                <label for="selectTime">Time</label>
+                <select class="form-control" name="id_time" id="selectTime" required>
+                  {% for clube in clubes %}
+                    <option value="{{ clube.id }}">{{ clube.nome }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label>Placar</label>
+                <div class="row">
+                  <div class="col-6">
+                    <input type="text" name="placar_time" class="form-control" required/>
+                  </div>
+                  <div class="col-6">
+                    <input type="text" name="placar_adversario" class="form-control" required/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <label for="selectAdversario">Adversário</label>
+                <select class="form-control" name="id_adversario" id="selectAdversario" required>
+                  {% for clube in clubes %}
+                    <option value="{{ clube.id }}">{{ clube.nome }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group offset-md-4 col-md-4">
+                <label for="selectEsquema">Esquema Tático</label>
+                <select class="form-control" name="id_esquema_tatico" id="selectEsquema" required>
+                  {% for esq in esquemas_taticos %}
+                    <option value="{{ esq.id }}">{{ esq.formacao }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="offset-md-3 col-md-4">
+                <button class="btn btn-block btn-success z-depth-0 my-4 waves-effect" type="submit">Cadastrar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        {% endif %}
+        {% if rend_cadastro_tipo_estatistica %}
+        <div class="col-md-8">
+          <form action="{{ url_for('cadastrar_tipo_estatistica') }}" method="post">
+            <div class="form-group">
+              <label for="inputNome">Nome do tipo de estatística</label>
+              <input class="form-control"  type="text" name="nome" id="inputNome" placeholder="Nome" required/>
+            </div>
+            <div class="form-group">
+              <label for="selectModulo">Módulo</label>
+              <select class="form-control" name="id_modulo" id="selectModulo" required>
+                {% for mod in modulos %}
+                <option value="{{ mod.id }}">{{ mod.nome }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inputUnidadeMedida">Unidade de medida (caso haja)</label>
+              <input class="form-control" type="text" name="unidade_medida" id="inputUnidadeMedida" placeholder="Ex.: km/h, m..." />
+            </div>
+            <button class="btn btn-success z-depth-0 my-4 waves-effect" type="submit">Cadastrar</button>
+          </form>
+        </div>
+        {% endif %}
+        {% if rend_cadastro_estatistica_clube %}
+        <div class="col-md-8">
+          <form action="{{ url_for('cadastrar_estatistica') }}" method="get">
+            <div class="form-group">
+              <label for="selectClube">Clube</label>
+              <select class="form-control" name="id_clube" id="selectClube" required/>
+                {% for clube in clubes %}
+                <option value="{{ clube.id }}">{{ clube.nome }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button class="btn btn-success z-depth-0 my-4 waves-effect" type="submit">Cadastrar</button>
+          </form>
+        </div>
+        {% endif %}
+        {% if rend_cadastro_estatistica %}
+        <div class="col-md-8">
+          <form action="{{ url_for('cadastrar_estatistica') }}" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="selectJogo">Jogo</label>
+                <select class="form-control" name="id_jogo" id="selectJogo" required/>
+                  {% for jogo in jogos %}
+                  <option value="{{ jogo.id }}">
+                    {% if jogo.local == 1: %}
+                      {{ jogo.time.nome }} {{ jogo.placar_time }} X {{ jogo.placar_adversario }} {{jogo.adversario.nome}}
+                    {% else %}
+                      {{ jogo.adversario.nome }} {{ jogo.placar_adversario }} X {{ jogo.placar_time }} {{jogo.time.nome}}
+                    {% endif %}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="selectJogador">Jogador</label>
+                <select class="form-control" name="id_jogador" id="selectJogador" required/>
+                  {% for jogador in jogadores %}
+                  <option value="{{ jogador.id }}">{{ jogador.nome }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="selectTipoEst">Tipo de Estatística</label>
+                <select class="form-control" name="id_tipo_estatistica" id="selectTipoEst" required/>
+                  {% for te in tipos_estatistica %}
+                  <option value="{{ te.id }}">{{ te.nome }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputQuantidade">Quantidade</label>
+                <input class="form-control" type="number" name="quantidade" id="inputQuantidade" required/>
+              </div>
+            </div>
+            <button class="btn btn-success z-depth-0 my-4 waves-effect" type="submit">Cadastrar</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
