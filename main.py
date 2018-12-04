@@ -25,12 +25,16 @@ def chartEstatisticas(estatisticas):
     labels = []
     values = []
     colors = []
+    if estatisticas:
+        tipo_estatistica = estatisticas[0].tipo_estatistica.nome
+    else:
+        tipo_estatistica = ''
     for e in estatisticas:
         labels.append(e.jogador.nome)
         values.append(e.quantidade)
         c = lambda: random.randint(0,255)
         colors.append('#%02X%02X%02X' % (c(), c(), c()))
-    return Chart(labels, values, colors)
+    return Chart(labels, values, colors, tipo_estatistica)
 
 @app.route('/', methods=['GET'])
 def pg_index():
@@ -66,9 +70,10 @@ def pg_desempenho_fisico():
     estatisticas = []
     id_tipo_estatistica = None
     id_jogo = None
+    chart = []
     if request.method == 'POST':
-        id_jogo = request.form['id_jogo']
-        id_tipo_estatistica = request.form['id_tipo_estatistica']
+        id_jogo = int(request.form['id_jogo'])
+        id_tipo_estatistica = int(request.form['id_tipo_estatistica'])
 
         if id_tipo_estatistica != None:
             estatisticas = Estatistica.query \
@@ -76,11 +81,11 @@ def pg_desempenho_fisico():
                                     .join(Jogo) \
                                     .filter_by(id_time=current_user.id_clube, id=id_jogo) \
                                     .all()
-        flash('Clique sobre o jogador para mais detalhes.', category='info')
+            chart = chartEstatisticas(estatisticas)
     else:
         id_tipo_estatistica = request.args.get('id_tipo_estatistica')
     return render_template('desempenho-fisico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
-                            estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica)
+                            estatisticas=estatisticas, jogos=jogos, id_tipo_estatistica=id_tipo_estatistica, chart=chart)
 
 @app.route('/desempenho-tecnico', methods=['GET', 'POST'])
 @login_required
@@ -92,8 +97,8 @@ def pg_desempenho_tecnico():
     id_jogo = None
     chart = []
     if request.method == 'POST':
-        id_jogo = request.form['id_jogo']
-        id_tipo_estatistica = request.form['id_tipo_estatistica']
+        id_jogo = int(request.form['id_jogo'])
+        id_tipo_estatistica = int(request.form['id_tipo_estatistica'])
 
         if id_tipo_estatistica != None:
             estatisticas = Estatistica.query \
@@ -103,7 +108,6 @@ def pg_desempenho_tecnico():
                                     .all()
 
             chart = chartEstatisticas(estatisticas)
-        flash('Clique sobre o jogador para mais detalhes.', category='info')
     else:
         id_tipo_estatistica = request.args.get('id_tipo_estatistica')
     return render_template('desempenho-tecnico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \
@@ -128,7 +132,6 @@ def pg_desempenho_tatico():
                                     .join(Jogo) \
                                     .filter_by(id_time=current_user.id_clube, id=id_jogo) \
                                     .all()
-        flash('Clique sobre o jogador para mais detalhes.', category='info')
     else:
         id_tipo_estatistica = request.args.get('id_tipo_estatistica')
     return render_template('desempenho-tatico.html', tipos_estatistica=tipos_estatistica, id_jogo=id_jogo, \

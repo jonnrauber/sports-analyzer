@@ -7,60 +7,55 @@
       <div class="row">
         <div class="col-md-5">
           <h5 class="card-title">Analisador de Desempenho Técnico</h5>
-          <table class="table table-hover">
-            <thead>
-              <th colspan="3">
-                <strong>Estatísticas Disponíveis</strong>
-              </th>
-            </thead>
-            <tbody>
-              {% for te in tipos_estatistica: %}
-              <tr>
-                <th scope="row">{{ loop.index }}</th>
-                <td>{{ te.nome }}</td>
-                <td><a href="{{ url_for('pg_desempenho_tecnico') }}?id_tipo_estatistica={{ te.id }}" class="blue-text">Detalhar <i class="fa fa-info-circle"></i></a></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
 
-        <div class="col-2">
-        </div>
-
-        <div class="col-md-5">
-          {% if id_tipo_estatistica: %}
-          <form class="form-inline" action="{{ url_for('pg_desempenho_tecnico') }}" method="post">
+          <form action="{{ url_for('pg_desempenho_tecnico') }}" method="post">
+            <div class="form-group">
+              <label for="id_tipo_estatistica">Estatísticas disponíveis: </label>
+              <select class="form-control mx-sm-3" id="id_tipo_estatistica" name="id_tipo_estatistica">
+                {% for te in tipos_estatistica: %}
+                  <option value="{{ te.id }}" {% if id_tipo_estatistica==te.id %} selected {% endif %}>
+                    {{ te.nome }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
             <div class="form-group">
               <label for="id_jogo">Jogo: </label>
-              <select class="form-control mx-sm-3" id="id_jogo" name="id_jogo" onchange="this.form.submit()">
-                <option value="">Selecione</option>
+              <select class="form-control mx-sm-3" id="id_jogo" name="id_jogo">
                 {% for jogo in jogos: %}
-                  {% if id_jogo == jogo.id: %}
-                    <option value="{{ jogo.id }}" selected="">
-                  {% else %}
-                    <option value="{{ jogo.id }}">
-                  {% endif %}
+                  <option value="{{ jogo.id }}" {% if id_jogo == jogo.id: %} selected {% endif %}>
                   {% if jogo.local == 1: %}
                     {{ jogo.time.nome }} {{ jogo.placar_time }} X {{ jogo.placar_adversario }} {{jogo.adversario.nome}}
                   {% else %}
                     {{ jogo.adversario.nome }} {{ jogo.placar_adversario }} X {{ jogo.placar_time }} {{jogo.time.nome}}
                   {% endif %}
-                    </option>
+                  </option>
                 {% endfor %}
               </select>
             </div>
-            <input type="hidden" value="{{ id_tipo_estatistica }}" name="id_tipo_estatistica"></input>
+            <button type="submit" class="btn btn-success z-depth-0 my-4 waves-effect">Detalhar</button>
           </form>
-          {% endif %}
+        </div>
+
+        <div class="col-1">
+        </div>
+
+        <div class="col-md-6">
           {% if estatisticas: %}
+          <h5 class="card-title">
+            {% if estatisticas[0].jogo.local == 1: %}
+              {{ estatisticas[0].jogo.time.nome }} {{ estatisticas[0].jogo.placar_time }}
+              X
+              {{ estatisticas[0].jogo.placar_adversario }} {{estatisticas[0].jogo.adversario.nome}}
+            {% else %}
+              {{ estatisticas[0].jogo.adversario.nome }} {{ estatisticas[0].jogo.placar_adversario }}
+              X
+              {{ estatisticas[0].jogo.placar_time }} {{estatisticas[0].jogo.time.nome}}
+            {% endif %}
+          </h5>
+          <strong>{{ estatisticas[0].tipo_estatistica.nome }}</strong>
           <canvas id="chartEstatisticas" width="600" height="400"></canvas>
           <table class="table table-hover">
-            <thead>
-              <th colspan="2">
-                <strong>{{ estatisticas[0].tipo_estatistica.nome }}</strong>
-              </th>
-            </thead>
             <tbody>
               {% for e in estatisticas: %}
               <tr>
@@ -94,7 +89,12 @@
           {% for col in chart.colors %}
             '{{ col }}',
           {% endfor %}
-        ]
+        ],
+        borderColor: [
+          {% for col in chart.colors %}
+            '{{ col }}',
+          {% endfor %}
+        ],
       }],
       labels: [
         {% for lab in chart.labels %}

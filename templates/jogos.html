@@ -39,6 +39,8 @@
         {% if jogo: %}
         <div class="col-md-6">
             <h5 class="card-title">{{ jogo.time.nome }} {{ jogo.placar_time }} X {{ jogo.placar_adversario }} {{ jogo.adversario.nome }}</h5>
+            <h6>Esquema utilizado: {{ jogo.esquema_tatico.formacao }}</h6>
+
 
             <table>
               {% for te in tipos_estatistica: %}

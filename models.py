@@ -6,10 +6,11 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class Chart():
-    def __init__(self, labels, values, colors):
+    def __init__(self, labels, values, colors, tipo_estatistica):
         self.labels = labels
         self.values = values
         self.colors = colors
+        self.tipo_estatistica = tipo_estatistica
 
 class MsgFormIndex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
